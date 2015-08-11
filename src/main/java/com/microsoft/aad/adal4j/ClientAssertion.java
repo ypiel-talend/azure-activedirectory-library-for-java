@@ -27,6 +27,7 @@ package com.microsoft.aad.adal4j;
 public final class ClientAssertion {
     
     private final String assertion;
+    private final String clientId;
     
     /**
      * Constructor to create credential with a jwt token encoded as a base64 url
@@ -35,11 +36,16 @@ public final class ClientAssertion {
      * @param assertion
      *            The jwt used as credential.
      */
-    public ClientAssertion(final String assertion) {
+    public ClientAssertion(final String clientId, final String assertion) {
         if (StringHelper.isBlank(assertion)) {
             throw new NullPointerException("assertion");
         }
+        
+        if (StringHelper.isBlank(clientId)) {
+            throw new NullPointerException("clientId");
+        }
 
+        this.clientId = clientId;
         this.assertion = assertion;
     }
 
@@ -50,5 +56,10 @@ public final class ClientAssertion {
      */
     public String getAssertion() {
         return assertion;
+    }
+    
+    public String getClientId()
+    {
+    	return clientId;
     }
 }

@@ -19,8 +19,11 @@
  ******************************************************************************/
 package com.microsoft.aad.adal4j;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.nimbusds.oauth2.sdk.AuthorizationGrant;
 
@@ -35,14 +38,12 @@ class AdalAuthorizatonGrant {
     /**
      * 
      * @param grant
-     * @param resource
+     * @param scope
      */
-    AdalAuthorizatonGrant(final AuthorizationGrant grant, final String resource) {
+    AdalAuthorizatonGrant(final AuthorizationGrant grant, final String[] scope) {
         this.grant = grant;
         params = new LinkedHashMap<String, String>();
-        if (!StringHelper.isBlank(resource)) {
-            params.put("resource", resource);
-        }
+        params.put("scope", StringHelper.convertArrayToString(scope));
     }
 
     /**

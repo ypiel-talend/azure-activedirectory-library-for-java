@@ -19,6 +19,8 @@
  ******************************************************************************/
 package com.microsoft.aad.adal4j;
 
+import java.util.Set;
+
 /**
  *
  */
@@ -28,4 +30,30 @@ final class StringHelper {
         return str == null || str.trim().length() == 0;
     }
 
+    static boolean isBlank(final String[] str) {
+        return str == null || str.length == 0;
+    }
+    
+
+    static String convertSetToString(Set<String> input)
+    {
+    	return convertArrayToString(input.toArray(new String[input.size()]));
+    }
+    
+    static String convertArrayToString(String[] array)
+    {
+    	StringBuilder builder = new StringBuilder();
+    	boolean isFirst = true;
+    	for(String value : array)
+    	{
+    		if(!isFirst){
+    			builder.append(" ");
+    		}
+    		
+    		builder.append(value);
+			isFirst = false;
+    	}
+    	
+    	return builder.toString();
+    }
 }

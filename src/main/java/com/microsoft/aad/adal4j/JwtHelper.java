@@ -80,6 +80,6 @@ final class JwtHelper {
             throw new AuthenticationException(e);
         }
 
-        return new ClientAssertion(jwt.serialize());
+        return new ClientAssertion(credential.getClientId(), jwt.serialize());
     }
 }
