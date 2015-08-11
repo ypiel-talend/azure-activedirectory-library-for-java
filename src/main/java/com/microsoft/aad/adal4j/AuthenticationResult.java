@@ -29,53 +29,58 @@ public final class AuthenticationResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String accessTokenType;
-    private final long expiresIn;
+    private final String tokenType;
+    private final Date idTokenExpiresOn;
     private final Date expiresOn;
     private final UserInfo userInfo;
     private final String accessToken;
+    private final String idToken;
     private final String refreshToken;
     private final boolean isMultipleResourceRefreshToken;
 
-    public AuthenticationResult(final String accessTokenType,
+    public AuthenticationResult(final String tokenType,
             final String accessToken, final String refreshToken,
-            final long expiresIn, final UserInfo userInfo,
+            final long expiresIn, final String idToken,
+            final long idTokenExpiresIn, final UserInfo userInfo,
             final boolean isMultipleResourceRefreshToken) {
-        this.accessTokenType = accessTokenType;
+        this.tokenType = tokenType;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-        this.expiresIn = expiresIn;
-
+        this.idToken = idToken;
+        
         Date now = new Date();
         now.setTime(now.getTime() + (expiresIn * 1000));
         this.expiresOn = now;
 
+        now = new Date();
+        now.setTime(now.getTime() + (idTokenExpiresIn * 1000));
+        this.idTokenExpiresOn = now;
+        
         this.userInfo = userInfo;
         this.isMultipleResourceRefreshToken = isMultipleResourceRefreshToken;
     }
 
-    public String getAccessTokenType() {
-        return accessTokenType;
+    public String getTokenType() {
+        return tokenType;
     }
 
     public String getAccessToken() {
         return accessToken;
     }
 
+    public String getIdToken() {
+        return idToken;
+    }
+    
     public String getRefreshToken() {
         return refreshToken;
     }
 
-    @Deprecated
-    public long getExpiresOn() {
-        return expiresIn;
+    public Date getIdTokenExpiresOn() {
+        return idTokenExpiresOn;
     }
-
-    public long getExpiresAfter() {
-        return expiresIn;
-    }
-
-    public Date getExpiresOnDate() {
+    
+    public Date getExpiresOn() {
         return expiresOn;
     }
 

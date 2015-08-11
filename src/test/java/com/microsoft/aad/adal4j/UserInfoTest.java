@@ -67,16 +67,16 @@ public class UserInfoTest extends AbstractAdalTests {
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_OBJECT_ID))
                 .andReturn(null).times(1);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_SUBJECT))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))
                 .andReturn("sub").times(2);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_UPN))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))
                 .andReturn(null).times(1);
         EasyMock.expect(
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_EMAIL))
                 .andReturn("test@value.com").times(2);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_GIVEN_NAME))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME))
                 .andReturn("test").times(1);
         EasyMock.expect(
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_FAMILY_NAME))
@@ -116,16 +116,16 @@ public class UserInfoTest extends AbstractAdalTests {
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_OBJECT_ID))
                 .andReturn(null).times(1);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_SUBJECT))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))
                 .andReturn("sub").times(2);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_UPN))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))
                 .andReturn(null).times(1);
         EasyMock.expect(
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_EMAIL))
                 .andReturn("test@value.com").times(2);
         EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_GIVEN_NAME))
+                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME))
                 .andReturn("test").times(1);
         EasyMock.expect(
                 claimSet.getStringClaim(AuthenticationConstants.ID_TOKEN_FAMILY_NAME))

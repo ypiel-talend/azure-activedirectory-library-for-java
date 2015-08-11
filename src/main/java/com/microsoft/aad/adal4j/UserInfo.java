@@ -20,9 +20,6 @@
 package com.microsoft.aad.adal4j;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
 
@@ -34,11 +31,9 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     String uniqueId;
     String displayableId;
-    String givenName;
-    String familyName;
-    String identityProvider;
-    String passwordChangeUrl;
-    Date passwordExpiresOn;
+    String name;
+    String version;
+    String tenantId;
 
     private UserInfo() {
     }
@@ -57,12 +52,21 @@ public class UserInfo implements Serializable {
     }
 
     /**
+     * Get Tenant Id
+     * 
+     * @return String value
+     */
+    public String getTenantId() {
+        return tenantId;
+    }
+    
+    /**
      * Get given name
      * 
      * @return String value
      */
-    public String getGivenName() {
-        return givenName;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -70,25 +74,8 @@ public class UserInfo implements Serializable {
      * 
      * @return String value
      */
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    /**
-     * Get identity provider
-     * 
-     * @return String value
-     */
-    public String getIdentityProvider() {
-        return identityProvider;
-    }
-
-    public String getPasswordChangeUrl() {
-        return passwordChangeUrl;
-    }
-
-    public Date getPasswordExpiresOn() {
-        return passwordExpiresOn;
+    public String getVersion() {
+        return version;
     }
 
     static UserInfo createFromIdTokenClaims(final ReadOnlyJWTClaimsSet claims)
@@ -102,56 +89,27 @@ public class UserInfo implements Serializable {
         String displayableId = null;
 
         if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_OBJECT_ID))) {
+                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))) {
             uniqueId = claims
-                    .getStringClaim(AuthenticationConstants.ID_TOKEN_OBJECT_ID);
-        } else if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_SUBJECT))) {
-            uniqueId = claims
-                    .getStringClaim(AuthenticationConstants.ID_TOKEN_SUBJECT);
+                    .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT);
         }
 
         if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_UPN))) {
+                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))) {
             displayableId = claims
-                    .getStringClaim(AuthenticationConstants.ID_TOKEN_UPN);
-        } else if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_EMAIL))) {
-            displayableId = claims
-                    .getStringClaim(AuthenticationConstants.ID_TOKEN_EMAIL);
+                    .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME);
         }
 
         final UserInfo userInfo = new UserInfo();
         userInfo.uniqueId = uniqueId;
         userInfo.displayableId = displayableId;
-        userInfo.familyName = claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_FAMILY_NAME);
-        userInfo.givenName = claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_GIVEN_NAME);
-        userInfo.identityProvider = claims
-                .getStringClaim(AuthenticationConstants.ID_TOKEN_IDENTITY_PROVIDER);
-
-        if (!StringHelper
-                .isBlank(claims
-                        .getStringClaim(AuthenticationConstants.ID_TOKEN_PASSWORD_CHANGE_URL))) {
-            userInfo.passwordChangeUrl = claims
-                    .getStringClaim(AuthenticationConstants.ID_TOKEN_PASSWORD_CHANGE_URL);
-        }
-
-        if (claims
-                .getClaim(AuthenticationConstants.ID_TOKEN_PASSWORD_EXPIRES_ON) != null) {
-            int claimExpiry = Integer
-                    .valueOf((String) claims
-                            .getClaim(AuthenticationConstants.ID_TOKEN_PASSWORD_EXPIRES_ON));
-            // pwd_exp returns seconds to expiration time
-            // it returns in seconds. Date accepts milliseconds.
-            if (claimExpiry > 0) {
-                Calendar expires = new GregorianCalendar();
-                expires.add(Calendar.SECOND, claimExpiry);
-                userInfo.passwordExpiresOn = expires.getTime();
-            }
-        }
-
+        userInfo.name = claims
+                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME);
+        userInfo.tenantId = claims
+                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_TENANTID);
+        userInfo.version = claims
+                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_VERSION);
+        
         return userInfo;
     }
 

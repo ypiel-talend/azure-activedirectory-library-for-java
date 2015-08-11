@@ -27,14 +27,17 @@ import com.nimbusds.oauth2.sdk.token.AccessToken;
 import com.nimbusds.oauth2.sdk.token.RefreshToken;
 import com.nimbusds.oauth2.sdk.util.JSONObjectUtils;
 import com.nimbusds.openid.connect.sdk.OIDCAccessTokenResponse;
+import com.nimbusds.openid.connect.sdk.claims.IDTokenClaimsSet;
 
 /**
  * 
  */
 class AdalAccessTokenResponse extends OIDCAccessTokenResponse {
 
-    private String resource;
-
+    private String[] scope;
+    private String profileInfo;
+    private String idTokenExpiresIn;
+    
     AdalAccessTokenResponse(final AccessToken accessToken,
             final RefreshToken refreshToken, final String idToken) {
         super(accessToken, refreshToken, idToken);
@@ -42,15 +45,25 @@ class AdalAccessTokenResponse extends OIDCAccessTokenResponse {
 
     AdalAccessTokenResponse(final AccessToken accessToken,
             final RefreshToken refreshToken, final String idToken,
-            final String resource) {
+            final String[] scope) {
         this(accessToken, refreshToken, idToken);
-        this.resource = resource;
+        this.scope = scope;
     }
 
-    String getResource() {
-        return resource;
+    String[] getScope() {
+        return scope;
     }
 
+    String getProfileInfo()
+    {
+        return profileInfo;
+    }
+
+    String getIdTokenExpiresIn()
+    {
+        return idTokenExpiresIn;
+    }
+    
     /**
      * 
      * @param httpResponse
@@ -85,12 +98,12 @@ class AdalAccessTokenResponse extends OIDCAccessTokenResponse {
         }
 
         // Parse value
-        String resourceValue = null;
-        if (jsonObject.containsKey("resource")) {
-            resourceValue = JSONObjectUtils.getString(jsonObject, "resource");
+        String resourceValue = "";
+        if (jsonObject.containsKey("scope")) {
+            resourceValue = JSONObjectUtils.getString(jsonObject, "scope");
         }
 
         return new AdalAccessTokenResponse(accessToken, refreshToken,
-                idTokenValue, resourceValue);
+                idTokenValue, resourceValue.split(" "));
     }
 }
