@@ -60,7 +60,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
         final ClientDataHttpHeaders cdhh = new ClientDataHttpHeaders("corr-id");
         final AdalTokenRequest request = new AdalTokenRequest(null, ca, grant,
                 cdhh.getReadonlyHeaderMap());
@@ -77,7 +77,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
         final ClientDataHttpHeaders cdhh = new ClientDataHttpHeaders("corr-id");
         final AdalTokenRequest request = new AdalTokenRequest(new URL(
                 "http://login.windows.net"), ca, grant,
@@ -95,7 +95,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
         final ClientDataHttpHeaders cdhh = new ClientDataHttpHeaders("corr-id");
         final AdalTokenRequest request = new AdalTokenRequest(new URL(
                 "http://login.windows.net"), ca, grant,
@@ -117,7 +117,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
         final AdalTokenRequest request = new AdalTokenRequest(new URL(
                 "http://login.windows.net"), null, grant, null);
         Assert.assertNotNull(request);
@@ -133,7 +133,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
 
         final AdalTokenRequest request = PowerMock.createPartialMock(
                 AdalTokenRequest.class, new String[] { "toOAuthRequest" },
@@ -165,13 +165,9 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
         Assert.assertFalse(StringHelper.isBlank(result.getAccessToken()));
         Assert.assertFalse(StringHelper.isBlank(result.getRefreshToken()));
         Assert.assertTrue(result.isMultipleResourceRefreshToken());
-        Assert.assertEquals(result.getExpiresAfter(), 3600);
         Assert.assertEquals(result.getTokenType(), "Bearer");
-        Assert.assertEquals(result.getUserInfo().getFamilyName(), "Admin");
-        Assert.assertEquals(result.getUserInfo().getGivenName(), "ADALTests");
         Assert.assertEquals(result.getUserInfo().getDisplayableId(),
                 "admin@aaltests.onmicrosoft.com");
-        Assert.assertNull(result.getUserInfo().getIdentityProvider());
     }
 
     @Test(expectedExceptions = AuthenticationException.class)
@@ -182,7 +178,7 @@ public class AdalTokenRequestTest extends AbstractAdalTests {
                 new AuthorizationCode("code"),
                 new URI("http://my.redirect.com"));
         final AdalAuthorizatonGrant grant = new AdalAuthorizatonGrant(ag,
-                (String) null);
+                new String[]{"scope"});
 
         final AdalTokenRequest request = PowerMock.createPartialMock(
                 AdalTokenRequest.class, new String[] { "toOAuthRequest" },

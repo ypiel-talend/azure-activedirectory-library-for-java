@@ -201,7 +201,7 @@ public class AuthenticationContextTest extends AbstractAdalTests {
         ctx = new AuthenticationContext(TestConfiguration.AAD_TENANT_ENDPOINT,
                 true, service);
         final Future<AuthenticationResult> result = ctx.acquireToken(
-                TestConfiguration.AAD_RESOURCE_ID, AsymmetricKeyCredential
+                TestConfiguration.AAD_SCOPE, AsymmetricKeyCredential
                         .create(TestConfiguration.AAD_CLIENT_ID, key, cert),
                 null);
         final AuthenticationResult ar = result.get();
@@ -226,7 +226,7 @@ public class AuthenticationContextTest extends AbstractAdalTests {
         ctx = new AuthenticationContext(TestConfiguration.AAD_TENANT_ENDPOINT,
                 true, service);
         final Future<AuthenticationResult> result = ctx.acquireToken(
-                TestConfiguration.AAD_RESOURCE_ID, AsymmetricKeyCredential
+                TestConfiguration.AAD_SCOPE, AsymmetricKeyCredential
                         .create(TestConfiguration.AAD_CLIENT_ID, key, cert),
                 null);
         final AuthenticationResult ar = result.get();
@@ -239,7 +239,7 @@ public class AuthenticationContextTest extends AbstractAdalTests {
     public void testInvalidClientAssertion() throws MalformedURLException {
         ctx = new AuthenticationContext(TestConfiguration.AAD_TENANT_ENDPOINT,
                 true, service);
-        ctx.acquireToken(TestConfiguration.AAD_RESOURCE_ID,
+        ctx.acquireToken(TestConfiguration.AAD_SCOPE,
                 new ClientAssertion("invalid_assertion"), null);
     }
 
@@ -255,7 +255,7 @@ public class AuthenticationContextTest extends AbstractAdalTests {
     public void testValidateInput_NullCredential() throws MalformedURLException {
         ctx = new AuthenticationContext(TestConfiguration.AAD_TENANT_ENDPOINT,
                 true, service);
-        ctx.acquireToken(TestConfiguration.AAD_RESOURCE_ID,
+        ctx.acquireToken(TestConfiguration.AAD_SCOPE,
                 (ClientAssertion) null, null);
     }
 

@@ -26,11 +26,21 @@ public class AssertionCredentialTest {
 
     @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "assertion")
     public void testAssertionNull() {
-	new ClientAssertion(null);
+        new ClientAssertion(null, "id");
     }
 
     @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "assertion")
     public void testAssertionEmpty() {
-	new ClientAssertion("");
+        new ClientAssertion("", "id");
+    }
+
+    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "clientId")
+    public void testClientIdNull() {
+        new ClientAssertion("assertion", null);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "clientId")
+    public void testClientIdEmpty() {
+        new ClientAssertion("assertion", "");
     }
 }

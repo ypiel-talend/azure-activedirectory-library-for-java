@@ -27,7 +27,9 @@ public final class TestConfiguration {
             + "/" + AAD_TENANT_NAME + "/";
     public final static String AAD_CLIENT_ID = "9083ccb8-8a46-43e7-8439-1d696df984ae";
     public final static String AAD_CLIENT_SECRET = "client_secret";
-    public final static String AAD_RESOURCE_ID = "b7a671d8-a408-42ff-86e0-aaf447fd17c4";
+    public final static String[] AAD_SCOPE = new String[] { "scope1",
+            "scope2" };
+    public final static String[] AAD_OPENID_SCOPE = new String[] { AAD_CLIENT_ID };
     public final static String AAD_CERTIFICATE_PATH = "/test-certificate.pfx";
     public final static String AAD_MEX_RESPONSE_FILE = "/mex-response.xml";
     public final static String AAD_MEX_2005_RESPONSE_FILE = "/mex-2005-response.xml";
@@ -54,18 +56,24 @@ public final class TestConfiguration {
             + "TnS_uWeSFXljbhId1l9PDrr7AwOSbOzogLvO14TaU294T6HeOQ8e0dUAvxEAMvsK_800A-AGNvbHK363xDjgmu464ye3CQvwq73GoHkzuxILCJKo0D"
             + "HO-TUj0_XsCpQ4TdkPepuhzaGc-zYsfMU1POuIOB87pzW7e_VDpCdxcN1fuk-7CECPQb8nrO0L8Du8y-TZDdTSe-i_A0Alv48Zll-6tDY9cxfAR0Uy"
             + "YKl_Kf45kuHAphCWwPsjUxv4rGHhgXZPRlKFq7bkXP2Es4ixCQzb3bVLLrtQaZjkQ1yn37ngJro8NR63EbHHjHTA9lRmf8KIQ\",\"token_type\""
-            + ":\"Bearer\",\"expires_in\":\"3600\",\"expires_on\":\"1393848404\",\"resource\":\"b7a671d8-a408-42ff-86e0-aaf447fd1"
-            + "7c4\",\"refresh_token\":\"AwABAAAAvPM1KaPlrEqdFSBzjqfTGPW9BlsxWYtD0DS9hJNOPHPnq8QYbv6_FKJ3MxSHbPAIekKwJ04TnZI1NnRj"
+            + ":\"Bearer\",\"expires_in\":\"3600\",\"expires_on\":\"1393848404\",\"scope\":\"openid scope1 scope2\",\"refresh_tok"
+            + "en\":\"AwABAAAAvPM1KaPlrEqdFSBzjqfTGPW9BlsxWYtD0DS9hJNOPHPnq8QYbv6_FKJ3MxSHbPAIekKwJ04TnZI1NnRj"
             + "CMhphmsy5ZFjWtLy3WN2E67b3aW2MTQ9lN06B-HdRdU0Rxi9EalB8kAlgb92Ob0zuhB90zWm3RbxshOW0vkHS3lNAV6_LQ8fZKeLTB1AuuRgLXsy-9"
             + "2h0yYuEQw_Uvs80IbGx59j1z3hJrCMEMrqh-Hf42OnckN-uR113zMircfEOMm0qzhrQdtLleTHELS79B18647OiG6e8k8saVIvJmjpIuy79_aN-Bk5"
             + "PRkkab-QAwn_R68via4nK0zpKHBCl0xoEvK59mqerNDEKJNY168_FHDYPiZyECaZCdlWdEqd3dLohFlnKv9zc0CnuvB_QSQHHNScqWkX53s_Us9I45"
-            + "QlRDaUPB89QXzQQaT2wZ8i3wTOb7mnEUMzrNrpsor6E4ckiviMx6WoepZmqQEZV-Yd-UUgAA\",\"scope\":\"user_impersonation\",\""
+            + "QlRDaUPB89QXzQQaT2wZ8i3wTOb7mnEUMzrNrpsor6E4ckiviMx6WoepZmqQEZV-Yd-UUgAA\",\""
             + "id_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhdWQiOiI5MDgzY2NiOC04YTQ2LTQzZTctODQzOS0xZDY5NmRmOTg0YWUiLCJpc"
             + "3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC8zMGJhYTY2Ni04ZGY4LTQ4ZTctOTdlNi03N2NmZDA5OTU5NjMvIiwiaWF0IjoxMzkzODQ0NTA0LCJ"
             + "uYmYiOjEzOTM4NDQ1MDQsImV4cCI6MTM5Mzg0ODQwNCwidmVyIjoiMS4wIiwidGlkIjoiMzBiYWE2NjYtOGRmOC00OGU3LTk3ZTYtNzdjZmQwOTk1O"
             + "TYzIiwib2lkIjoiNGY4NTk5ODktYTJmZi00MTFlLTkwNDgtYzMyMjI0N2FjNjJjIiwidXBuIjoiYWRtaW5AYWFsdGVzdHMub25taWNyb3NvZnQuY29"
             + "tIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhYWx0ZXN0cy5vbm1pY3Jvc29mdC5jb20iLCJzdWIiOiJCczVxVG4xQ3YtNC10VXIxTGxBb3pOS1NRd0Fjb"
-            + "m4ydHcyQjlmelduNlpJIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImdpdmVuX25hbWUiOiJBREFMVGVzdHMifQ.\"}";
+            + "m4ydHcyQjlmelduNlpJIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImdpdmVuX25hbWUiOiJBREFMVGVzdHMifQ.\",\"profile_info\":\"eyJhdWQ"
+            + "iOiI5MDgzY2NiOC04YTQ2LTQzZTctODQzOS0xZDY5NmRmOTg0YWUiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC8zMGJhYTY2Ni04ZGY4LT"
+            + "Q4ZTctOTdlNi03N2NmZDA5OTU5NjMvIiwiaWF0IjoxNDAwNTQxMzk1LCJuYmYiOjE0MDA1NDEzOTUsImV4cCI6MTQwMDU0NTU5NSwidmVyIjoiMS4wI"
+            + "iwidGlkIjoiMzBiYWE2NjYtOGRmOC00OGU3LTk3ZTYtNzdjZmQwOTk1OTYzIiwib2lkIjoiNGY4NTk5ODktYTJmZi00MTFlLTkwNDgtYzMyMjI0N2Fj"
+            + "NjJjIiwidXBuIjoiYWRtaW5AYWFsdGVzdHMub25taWNyb3NvZnQuY29tIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhYWx0ZXN0cy5vbm1pY3Jvc29mdC5"
+            + "jb20iLCJzdWIiOiJCczVxVG4xQ3YtNC10VXIxTGxBb3pOS1NRd0Fjbm4ydHcyQjlmelduNlpJIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImdpdmVu"
+            + "X25hbWUiOiJBREFMVGVzdHMifQ\", \"id_token_expires_in\":\"3599\"}";
 
     public final static String HTTP_ERROR_RESPONSE = "{\"error\":\"invalid_request\",\"error_description\":\"AADSTS90011: Request "
             + "is ambiguous, multiple application identifiers found. Application identifiers: 'd09bb6da-4d46-4a16-880c-7885d8291fb9"

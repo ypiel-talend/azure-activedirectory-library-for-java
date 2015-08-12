@@ -89,9 +89,12 @@ class AdalTokenRequest {
             result = new AuthenticationResult(response.getAccessToken()
                     .getType().getValue(),
                     response.getAccessToken().getValue(), refreshToken,
-                    response.getAccessToken().getLifetime(), info,
-                    !StringHelper.isBlank(response.getResource()));
-        } else {
+                    response.getAccessToken().getLifetime(),
+                    response.getIDTokenString(),
+                    response.getIdTokenExpiresIn(), info,
+                    !StringHelper.isBlank(response.getScope()));
+        }
+        else {
             final TokenErrorResponse errorResponse = TokenErrorResponse
                     .parse(httpResponse);
             throw new AuthenticationException(errorResponse.toJSONObject()
