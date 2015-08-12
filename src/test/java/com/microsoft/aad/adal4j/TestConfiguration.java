@@ -27,8 +27,7 @@ public final class TestConfiguration {
             + "/" + AAD_TENANT_NAME + "/";
     public final static String AAD_CLIENT_ID = "9083ccb8-8a46-43e7-8439-1d696df984ae";
     public final static String AAD_CLIENT_SECRET = "client_secret";
-    public final static String[] AAD_SCOPE = new String[] { "scope1",
-            "scope2" };
+    public final static String[] AAD_SCOPE = new String[] { "scope1", "scope2" };
     public final static String[] AAD_OPENID_SCOPE = new String[] { AAD_CLIENT_ID };
     public final static String AAD_CERTIFICATE_PATH = "/test-certificate.pfx";
     public final static String AAD_MEX_RESPONSE_FILE = "/mex-response.xml";

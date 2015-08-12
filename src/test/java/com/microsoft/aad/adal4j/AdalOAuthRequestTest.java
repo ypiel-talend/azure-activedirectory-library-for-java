@@ -47,10 +47,8 @@ public class AdalOAuthRequestTest extends AbstractAdalTests {
         assertNotNull(request);
     }
 
-
     @Test(expectedExceptions = IOException.class, expectedExceptionsMessageRegExp = "Couldn't parse Content-Type header: Invalid Content-Type value: Expected '/', got null")
-    public void testCreateResponseContentTypeParsingFailure()
-            throws Exception {
+    public void testCreateResponseContentTypeParsingFailure() throws Exception {
 
         final AdalOAuthRequest request = new AdalOAuthRequest(Method.GET,
                 new URL("https://" + TestConfiguration.AAD_HOST_NAME), null);
@@ -67,8 +65,7 @@ public class AdalOAuthRequestTest extends AbstractAdalTests {
     }
 
     @Test
-    public void testCreateResponseLocationNull()
-            throws Exception {
+    public void testCreateResponseLocationNull() throws Exception {
         final AdalOAuthRequest request = new AdalOAuthRequest(Method.GET,
                 new URL("https://" + TestConfiguration.AAD_HOST_NAME), null);
         final HttpURLConnection conn = PowerMock

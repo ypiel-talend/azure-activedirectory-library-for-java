@@ -72,7 +72,8 @@ class HttpHelper {
             HttpHelper.verifyReturnedCorrelationId(log, conn, headers
                     .get(ClientDataHttpHeaders.CORRELATION_ID_HEADER_NAME));
             return response;
-        } finally {
+        }
+        finally {
             wr.close();
         }
     }
@@ -93,7 +94,8 @@ class HttpHelper {
             while ((rsz = reader.read(buffer, 0, buffer.length)) > -1) {
                 out.append(buffer, 0, rsz);
             }
-        } finally {
+        }
+        finally {
             reader.close();
         }
 

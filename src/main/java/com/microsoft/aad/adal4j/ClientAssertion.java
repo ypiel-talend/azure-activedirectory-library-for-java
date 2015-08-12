@@ -19,16 +19,15 @@
  ******************************************************************************/
 package com.microsoft.aad.adal4j;
 
-
 /***
  * Credential type containing an assertion of type
  * "urn:ietf:params:oauth:token-type:jwt".
  */
 public final class ClientAssertion {
-    
+
     private final String assertion;
     private final String clientId;
-    
+
     /**
      * Constructor to create credential with a jwt token encoded as a base64 url
      * encoded string.
@@ -40,7 +39,7 @@ public final class ClientAssertion {
         if (StringHelper.isBlank(assertion)) {
             throw new NullPointerException("assertion");
         }
-        
+
         if (StringHelper.isBlank(clientId)) {
             throw new NullPointerException("clientId");
         }
@@ -57,9 +56,8 @@ public final class ClientAssertion {
     public String getAssertion() {
         return assertion;
     }
-    
-    public String getClientId()
-    {
-    	return clientId;
+
+    public String getClientId() {
+        return clientId;
     }
 }

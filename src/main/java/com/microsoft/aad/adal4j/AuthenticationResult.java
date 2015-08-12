@@ -47,7 +47,7 @@ public final class AuthenticationResult implements Serializable {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.idToken = idToken;
-        
+
         Date now = new Date();
         now.setTime(now.getTime() + (expiresIn * 1000));
         this.expiresOn = now;
@@ -55,7 +55,7 @@ public final class AuthenticationResult implements Serializable {
         now = new Date();
         now.setTime(now.getTime() + (idTokenExpiresIn * 1000));
         this.idTokenExpiresOn = now;
-        
+
         this.userInfo = userInfo;
         this.isMultipleResourceRefreshToken = isMultipleResourceRefreshToken;
     }
@@ -71,7 +71,7 @@ public final class AuthenticationResult implements Serializable {
     public String getIdToken() {
         return idToken;
     }
-    
+
     public String getRefreshToken() {
         return refreshToken;
     }
@@ -79,7 +79,7 @@ public final class AuthenticationResult implements Serializable {
     public Date getIdTokenExpiresOn() {
         return idTokenExpiresOn;
     }
-    
+
     public Date getExpiresOn() {
         return expiresOn;
     }

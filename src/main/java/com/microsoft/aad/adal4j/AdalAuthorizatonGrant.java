@@ -34,7 +34,7 @@ class AdalAuthorizatonGrant {
 
     private final AuthorizationGrant grant;
     private final Map<String, String> params;
-    
+
     /**
      * 
      * @param grant
@@ -63,16 +63,15 @@ class AdalAuthorizatonGrant {
         if (this.params != null) {
             outParams.putAll(this.params);
         }
-        
+
         outParams.put("scope", "openid");
         outParams.putAll(grant.toParameters());
         return outParams;
     }
-    
-    AuthorizationGrant getAuthorizationGrant(){
+
+    AuthorizationGrant getAuthorizationGrant() {
         return this.grant;
     }
-    
 
     Map<String, String> getCustomParameters() {
         return params;

@@ -34,7 +34,8 @@ class AuthenticationAuthority {
             .getLogger(AuthenticationAuthority.class);
 
     private final static String[] TRUSTED_HOST_LIST = { "login.windows.net",
-            "login.chinacloudapi.cn", "login.cloudgovapi.us", "login.microsoftonline.com" };
+            "login.chinacloudapi.cn", "login.cloudgovapi.us",
+            "login.microsoftonline.com" };
     private final static String TENANTLESS_TENANT_NAME = "common";
     private final static String AUTHORIZE_ENDPOINT_TEMPLATE = "https://{host}/{tenant}/v2/oauth2/authorize";
     private final static String DISCOVERY_ENDPOINT = "common/discovery/instance";
@@ -72,11 +73,10 @@ class AuthenticationAuthority {
         setupAuthorityProperties();
     }
 
-    String getAuthorizationEndpoint()
-    {
+    String getAuthorizationEndpoint() {
         return authorizationEndpoint;
     }
-    
+
     String getHost() {
         return host;
     }
@@ -92,11 +92,11 @@ class AuthenticationAuthority {
     String getTokenEndpoint() {
         return tokenEndpoint;
     }
-    
+
     String getUserRealmEndpoint(String username) {
         return String.format(userRealmEndpointFormat, host, username);
     }
-    
+
     AuthorityType getAuthorityType() {
         return authorityType;
     }
@@ -171,7 +171,8 @@ class AuthenticationAuthority {
         this.tokenEndpoint = this.tokenEndpoint.replace("{tenant}", tenant);
         this.tokenUri = this.tokenEndpoint;
         this.issuer = this.tokenUri;
-        this.authorizationEndpoint = AUTHORIZE_ENDPOINT_TEMPLATE.replace("{host}", this.host).replace("{tenant}", tenant);
+        this.authorizationEndpoint = AUTHORIZE_ENDPOINT_TEMPLATE.replace(
+                "{host}", this.host).replace("{tenant}", tenant);
         this.isTenantless = TENANTLESS_TENANT_NAME.equalsIgnoreCase(tenant);
         this.setSelfSignedJwtAudience(this.getIssuer());
         this.createInstanceDiscoveryEndpoint(tenant);

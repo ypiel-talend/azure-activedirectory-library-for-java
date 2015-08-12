@@ -59,7 +59,7 @@ public class UserInfo implements Serializable {
     public String getTenantId() {
         return tenantId;
     }
-    
+
     /**
      * Get given name
      * 
@@ -94,8 +94,9 @@ public class UserInfo implements Serializable {
                     .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT);
         }
 
-        if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))) {
+        if (!StringHelper
+                .isBlank(claims
+                        .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))) {
             displayableId = claims
                     .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME);
         }
@@ -109,7 +110,7 @@ public class UserInfo implements Serializable {
                 .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_TENANTID);
         userInfo.version = claims
                 .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_VERSION);
-        
+
         return userInfo;
     }
 

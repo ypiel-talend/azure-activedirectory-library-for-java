@@ -36,7 +36,7 @@ public class AdalJWTClaimsSetTest extends AbstractAdalTests {
     public void testNullAudience() {
 
         final AdalJWTClaimsSet obj = new AdalJWTClaimsSet();
-        obj.setAudience((String)null);
+        obj.setAudience((String) null);
         final JSONObject jo = obj.toJSONObject();
         Assert.assertFalse(jo.containsKey(AdalJWTClaimsSet.AUDIENCE_CLAIM));
     }

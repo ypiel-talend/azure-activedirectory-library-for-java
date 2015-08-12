@@ -66,7 +66,8 @@ public class AsymmetricKeyCredentialTest extends AbstractAdalTests {
         EasyMock.expect(modulus.bitLength()).andReturn(2048).times(1);
         EasyMock.expect(key.getModulus()).andReturn(modulus).times(1);
         EasyMock.replay(modulus, key);
-        final AsymmetricKeyCredential kc = AsymmetricKeyCredential.create("id", key, null);
+        final AsymmetricKeyCredential kc = AsymmetricKeyCredential.create("id",
+                key, null);
         assertNotNull(kc);
         assertEquals("id", kc.getClientId());
     }
@@ -78,7 +79,8 @@ public class AsymmetricKeyCredentialTest extends AbstractAdalTests {
         EasyMock.expect(modulus.bitLength()).andReturn(2048).times(1);
         EasyMock.expect(key.getModulus()).andReturn(modulus).times(1);
         EasyMock.replay(modulus, key);
-        final AsymmetricKeyCredential kc = AsymmetricKeyCredential.create("id", key, null);
+        final AsymmetricKeyCredential kc = AsymmetricKeyCredential.create("id",
+                key, null);
         assertNotNull(kc);
         assertEquals(key, kc.getKey());
     }

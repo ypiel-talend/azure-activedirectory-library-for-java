@@ -39,7 +39,8 @@ public class AbstractAdalTests extends PowerMockTestCase {
                     .getResource(TestConfiguration.AAD_CERTIFICATE_PATH)
                     .getFile());
             prop.getProperty("database");
-        } finally {
+        }
+        finally {
             if (input != null) {
                 input.close();
             }
