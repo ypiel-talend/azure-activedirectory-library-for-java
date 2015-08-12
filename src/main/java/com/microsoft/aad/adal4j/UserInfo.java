@@ -21,7 +21,9 @@ package com.microsoft.aad.adal4j;
 
 import java.io.Serializable;
 
-import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
+import net.minidev.json.JSONObject;
+
+import com.nimbusds.oauth2.sdk.util.JSONObjectUtils;
 
 /**
  * Contains information of a single user.
@@ -78,38 +80,37 @@ public class UserInfo implements Serializable {
         return version;
     }
 
-    static UserInfo createFromIdTokenClaims(final ReadOnlyJWTClaimsSet claims)
-            throws java.text.ParseException {
+    static UserInfo createFromProfileInfoClaims(final JSONObject obj)
+            throws com.nimbusds.oauth2.sdk.ParseException {
 
-        if (claims == null || claims.getAllClaims().size() == 0) {
+        if (obj == null || obj.size() == 0) {
             return null;
         }
 
         String uniqueId = null;
         String displayableId = null;
 
-        if (!StringHelper.isBlank(claims
-                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))) {
-            uniqueId = claims
-                    .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT);
+        if (!StringHelper.isBlank(JSONObjectUtils.getString(obj,
+                AuthenticationConstants.PROFILE_TOKEN_SUBJECT))) {
+            uniqueId = JSONObjectUtils.getString(obj,
+                    AuthenticationConstants.PROFILE_TOKEN_SUBJECT);
         }
 
-        if (!StringHelper
-                .isBlank(claims
-                        .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))) {
-            displayableId = claims
-                    .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME);
+        if (!StringHelper.isBlank(JSONObjectUtils.getString(obj,
+                AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))) {
+            displayableId = JSONObjectUtils.getString(obj,
+                    AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME);
         }
 
         final UserInfo userInfo = new UserInfo();
         userInfo.uniqueId = uniqueId;
         userInfo.displayableId = displayableId;
-        userInfo.name = claims
-                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME);
-        userInfo.tenantId = claims
-                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_TENANTID);
-        userInfo.version = claims
-                .getStringClaim(AuthenticationConstants.PROFILE_TOKEN_VERSION);
+        userInfo.name = JSONObjectUtils.getString(obj,
+                AuthenticationConstants.PROFILE_TOKEN_NAME);
+        userInfo.tenantId = JSONObjectUtils.getString(obj,
+                AuthenticationConstants.PROFILE_TOKEN_TENANTID);
+        userInfo.version = JSONObjectUtils.getString(obj,
+                AuthenticationConstants.PROFILE_TOKEN_VERSION);
 
         return userInfo;
     }

@@ -21,7 +21,6 @@ package com.microsoft.aad.adal4j;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.easymock.EasyMock;
 import org.powermock.api.easymock.PowerMock;
@@ -29,6 +28,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
+import com.nimbusds.oauth2.sdk.util.JSONObjectUtils;
 
 /**
  *
@@ -37,73 +37,18 @@ import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
 public class UserInfoTest extends AbstractAdalTests {
 
     @Test
-    public void testCreateFromIdTokenClaims_EmptyClaims() throws ParseException {
-
-        final ReadOnlyJWTClaimsSet claimSet = PowerMock
-                .createMock(ReadOnlyJWTClaimsSet.class);
-        EasyMock.expect(claimSet.getAllClaims())
-                .andReturn(new HashMap<String, Object>()).times(1);
-        EasyMock.replay(claimSet);
-        Assert.assertNull(UserInfo.createFromIdTokenClaims(claimSet));
-        PowerMock.verifyAll();
+    public void testCreateFromProfileInfoClaims_AllValues() throws Exception
+    {
+        final AdalAccessTokenResponse response = AdalAccessTokenResponse
+                .parseJsonObject(JSONObjectUtils
+                        .parseJSONObject(TestConfiguration.HTTP_RESPONSE_FROM_AUTH_CODE));
+        UserInfo info = UserInfo.createFromProfileInfoClaims(response.getProfileInfo());
+        Assert.assertNotNull(info);
     }
 
     @Test
-    public void testCreateFromIdTokenClaims_Null() throws ParseException {
-
-        Assert.assertNull(UserInfo.createFromIdTokenClaims(null));
+    public void testCreateFromIdTokenClaims_Null() throws com.nimbusds.oauth2.sdk.ParseException {
+        Assert.assertNull(UserInfo.createFromProfileInfoClaims(null));
     }
 
-    @Test
-    public void testCreateFromIdTokenClaims_HasEmailSubjectPasswordClaims()
-            throws ParseException {
-
-        final ReadOnlyJWTClaimsSet claimSet = PowerMock
-                .createMock(ReadOnlyJWTClaimsSet.class);
-        final Map<String, Object> map = new HashMap<String, Object>();
-        map.put("", "");
-        EasyMock.expect(claimSet.getAllClaims()).andReturn(map).times(1);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))
-                .andReturn("sub").times(2);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))
-                .andReturn(null).times(1);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME))
-                .andReturn("test").times(1);
-
-        EasyMock.replay(claimSet);
-        final UserInfo ui = UserInfo.createFromIdTokenClaims(claimSet);
-        Assert.assertNotNull(ui);
-        Assert.assertEquals("test@value.com", ui.getDisplayableId());
-        Assert.assertEquals("sub", ui.getUniqueId());
-        PowerMock.verifyAll();
-    }
-
-    public void testCreateFromIdTokenClaims_HasUpnObjectIdNoPasswordClaims()
-            throws ParseException {
-
-        final ReadOnlyJWTClaimsSet claimSet = PowerMock
-                .createMock(ReadOnlyJWTClaimsSet.class);
-        final Map<String, Object> map = new HashMap<String, Object>();
-        map.put("", "");
-        EasyMock.expect(claimSet.getAllClaims()).andReturn(map).times(1);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_SUBJECT))
-                .andReturn("sub").times(2);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_PREF_USERNAME))
-                .andReturn(null).times(1);
-        EasyMock.expect(
-                claimSet.getStringClaim(AuthenticationConstants.PROFILE_TOKEN_NAME))
-                .andReturn("test").times(1);
-
-        EasyMock.replay(claimSet);
-        final UserInfo ui = UserInfo.createFromIdTokenClaims(claimSet);
-        Assert.assertNotNull(ui);
-        Assert.assertEquals("test@value.com", ui.getDisplayableId());
-        Assert.assertEquals("sub", ui.getUniqueId());
-        PowerMock.verifyAll();
-    }
 }

@@ -101,6 +101,11 @@ public class AuthenticationContext {
 
         authenticationAuthority = new AuthenticationAuthority(new URL(
                 this.getAuthority()), this.shouldValidateAuthority());
+        
+        if(authenticationAuthority.detectAuthorityType() == AuthorityType.ADFS)
+        {
+            throw new IllegalArgumentException("ADFS is not a supported authority");
+        }
     }
 
     private String canonicalizeUri(String authority) {

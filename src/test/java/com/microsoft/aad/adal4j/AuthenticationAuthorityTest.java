@@ -91,34 +91,14 @@ public class AuthenticationAuthorityTest extends AbstractAdalTests {
                 TestConfiguration.AAD_TENANT_ENDPOINT);
         Assert.assertEquals(aa.getHost(), TestConfiguration.AAD_HOST_NAME);
         Assert.assertEquals(aa.getIssuer(),
-                TestConfiguration.AAD_TENANT_ENDPOINT + "oauth2/token");
+                TestConfiguration.AAD_TENANT_ENDPOINT + "v2/oauth2/token");
         Assert.assertEquals(aa.getSelfSignedJwtAudience(),
-                TestConfiguration.AAD_TENANT_ENDPOINT + "oauth2/token");
+                TestConfiguration.AAD_TENANT_ENDPOINT + "v2/oauth2/token");
         Assert.assertEquals(aa.getTokenEndpoint(),
-                TestConfiguration.AAD_TENANT_ENDPOINT + "oauth2/token");
+                TestConfiguration.AAD_TENANT_ENDPOINT + "v2/oauth2/token");
         Assert.assertEquals(aa.getAuthorityType(), AuthorityType.AAD);
         Assert.assertEquals(aa.getTokenUri(),
-                TestConfiguration.AAD_TENANT_ENDPOINT + "oauth2/token");
-        Assert.assertEquals(aa.isTenantless(), false);
-    }
-
-    @Test
-    public void testConstructor_ADFSAuthority() throws MalformedURLException {
-        final AuthenticationAuthority aa = new AuthenticationAuthority(new URL(
-                TestConfiguration.ADFS_TENANT_ENDPOINT), false);
-        Assert.assertNotNull(aa);
-        Assert.assertEquals(aa.getAuthority(),
-                TestConfiguration.ADFS_TENANT_ENDPOINT);
-        Assert.assertEquals(aa.getHost(), TestConfiguration.ADFS_HOST_NAME);
-        Assert.assertEquals(aa.getIssuer(),
-                TestConfiguration.ADFS_TENANT_ENDPOINT + "oauth2/token");
-        Assert.assertEquals(aa.getSelfSignedJwtAudience(),
-                TestConfiguration.ADFS_TENANT_ENDPOINT + "oauth2/token");
-        Assert.assertEquals(aa.getTokenEndpoint(),
-                TestConfiguration.ADFS_TENANT_ENDPOINT + "oauth2/token");
-        Assert.assertEquals(aa.getAuthorityType(), AuthorityType.ADFS);
-        Assert.assertEquals(aa.getTokenUri(),
-                TestConfiguration.ADFS_TENANT_ENDPOINT + "oauth2/token");
+                TestConfiguration.AAD_TENANT_ENDPOINT + "v2/oauth2/token");
         Assert.assertEquals(aa.isTenantless(), false);
     }
 

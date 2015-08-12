@@ -96,7 +96,8 @@ public class AuthenticationContextTest extends AbstractAdalTests {
         PowerMock.expectPrivate(ctx, "acquireTokenCommon",
                 EasyMock.isA(AdalAuthorizatonGrant.class),
                 EasyMock.isA(ClientAuthentication.class),
-                EasyMock.isA(ClientDataHttpHeaders.class)).andReturn(
+                EasyMock.isA(ClientDataHttpHeaders.class),
+                EasyMock.isA(String.class)).andReturn(
                 new AuthenticationResult("bearer", "accessToken",
                         "refreshToken", new Date().getTime(), "id_token",
                         new Date().getTime(), null, false));
@@ -138,7 +139,8 @@ public class AuthenticationContextTest extends AbstractAdalTests {
         PowerMock.expectPrivate(ctx, "acquireTokenCommon",
                 EasyMock.isA(AdalAuthorizatonGrant.class),
                 EasyMock.isA(ClientAuthentication.class),
-                EasyMock.isA(ClientDataHttpHeaders.class)).andReturn(
+                EasyMock.isA(ClientDataHttpHeaders.class),
+                EasyMock.isA(String.class)).andReturn(
                 new AuthenticationResult("bearer", "accessToken",
                         "refreshToken", new Date().getTime(), "idtoken",
                         new Date().getTime(), null, false));

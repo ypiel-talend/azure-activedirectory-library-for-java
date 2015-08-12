@@ -35,7 +35,7 @@ public final class ClientAssertion {
      * @param assertion
      *            The jwt used as credential.
      */
-    public ClientAssertion(final String clientId, final String assertion) {
+    public ClientAssertion(final String assertion, final String clientId) {
         if (StringHelper.isBlank(assertion)) {
             throw new NullPointerException("assertion");
         }

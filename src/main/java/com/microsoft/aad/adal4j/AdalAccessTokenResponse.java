@@ -21,6 +21,11 @@ package com.microsoft.aad.adal4j;
 
 import net.minidev.json.JSONObject;
 
+import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.PlainObject;
+import com.nimbusds.jose.util.Base64URL;
+import com.nimbusds.jwt.PlainJWT;
+import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
 import com.nimbusds.oauth2.sdk.ParseException;
 import com.nimbusds.oauth2.sdk.http.HTTPResponse;
 import com.nimbusds.oauth2.sdk.token.AccessToken;
@@ -51,8 +56,18 @@ class AdalAccessTokenResponse extends OIDCAccessTokenResponse {
         return scope;
     }
 
-    String getProfileInfo() {
+    String getProfileInfoString() {
         return profileInfo;
+    }
+
+    JSONObject getProfileInfo() throws ParseException {
+        if (StringHelper.isBlank(profileInfo)) 
+        {
+            return null;
+        }
+        
+        Base64URL value = new Base64URL(profileInfo);
+        return JSONObjectUtils.parseJSONObject(value.decodeToString());
     }
 
     long getIdTokenExpiresIn() {

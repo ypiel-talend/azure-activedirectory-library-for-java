@@ -21,6 +21,8 @@ package com.microsoft.aad.adal4j;
 
 import java.text.ParseException;
 
+import net.minidev.json.JSONObject;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -32,17 +34,10 @@ import com.nimbusds.oauth2.sdk.util.JSONObjectUtils;
 @Test(groups = { "checkin" })
 public class AdalAccessTokenResponseTest extends AbstractAdalTests {
 
-    private final String profileInfoString = "eyJhdWQiOiI5MDgzY2NiOC04YTQ2LT"
-            + "QzZTctODQzOS0xZDY5NmRmOTg0YWUiLCJpc3MiOiJodHRwczovL3N0cy53aW"
-            + "5kb3dzLm5ldC8zMGJhYTY2Ni04ZGY4LTQ4ZTctOTdlNi03N2NmZDA5OTU5NjM"
-            + "vIiwiaWF0IjoxNDAwNTQxMzk1LCJuYmYiOjE0MDA1NDEzOTUsImV4cCI6MTQw"
-            + "MDU0NTU5NSwidmVyIjoiMS4wIiwidGlkIjoiMzBiYWE2NjYtOGRmOC00OGU3L"
-            + "Tk3ZTYtNzdjZmQwOTk1OTYzIiwib2lkIjoiNGY4NTk5ODktYTJmZi00MTFlLT"
-            + "kwNDgtYzMyMjI0N2FjNjJjIiwidXBuIjoiYWRtaW5AYWFsdGVzdHMub25taWN"
-            + "yb3NvZnQuY29tIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhYWx0ZXN0cy5vbm1p"
-            + "Y3Jvc29mdC5jb20iLCJzdWIiOiJCczVxVG4xQ3YtNC10VXIxTGxBb3pOS1NRd0"
-            + "Fjbm4ydHcyQjlmelduNlpJIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImdpdmVu"
-            + "X25hbWUiOiJBREFMVGVzdHMifQ";
+    public static final String profileInfoString = "ewogICJ2ZXJzaW9uIjogIjE"
+            + "uMCIsCiAgInByZWZlcnJlZF91c2VybmFtZSI6ICJ1c2VyQG5hbWUuY29tIiwK"
+            + "ICAic3ViIjogImhmZ2lydWhnM2lzMzQ0ZXVmciIsCiAgInRpZCI6ICI4MDI5M"
+            + "zgwaGpobWhrajMyNDA5ODQyNCIsCiAgIm5hbWUiOiAic2FtcGxlIG5hbWUiCn0";
 
     private final String idToken = "idToken";
     private final long idTokenExpiresIn = 3599;
@@ -59,8 +54,8 @@ public class AdalAccessTokenResponseTest extends AbstractAdalTests {
     }
 
     @Test
-    public void testParseJsonObject()
-            throws com.nimbusds.oauth2.sdk.ParseException {
+    public void testParseJsonObject() throws Exception {
+
         final AdalAccessTokenResponse response = AdalAccessTokenResponse
                 .parseJsonObject(JSONObjectUtils
                         .parseJSONObject(TestConfiguration.HTTP_RESPONSE_FROM_AUTH_CODE));
@@ -68,5 +63,8 @@ public class AdalAccessTokenResponseTest extends AbstractAdalTests {
         Assert.assertNotNull(response.getIDToken());
         Assert.assertFalse(StringHelper.isBlank(response.getIDTokenString()));
         Assert.assertFalse(StringHelper.isBlank(response.getScope()));
+        JSONObject set = response.getProfileInfo();
+        Assert.assertNotNull(set);
     }
+
 }

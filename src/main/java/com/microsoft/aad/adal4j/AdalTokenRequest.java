@@ -82,8 +82,7 @@ class AdalTokenRequest {
 
             UserInfo info = null;
             if (response.getIDToken() != null) {
-                info = UserInfo.createFromIdTokenClaims(response.getIDToken()
-                        .getJWTClaimsSet());
+                info = UserInfo.createFromProfileInfoClaims(response.getProfileInfo());
             }
 
             result = new AuthenticationResult(response.getAccessToken()
