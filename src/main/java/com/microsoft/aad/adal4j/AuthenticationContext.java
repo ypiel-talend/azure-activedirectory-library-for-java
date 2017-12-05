@@ -219,6 +219,57 @@ public class AuthenticationContext {
                 callback);
     }
 
+
+    /**
+     * Retrieve a token
+     *
+     * @param clientCredential
+     *            The client credential to use for token acquisition.
+     * @param resource
+     *            Identifier of the target resource that is the recipient of the
+     *            requested token. If null, token is requested for the same
+     *            resource refresh token was originally issued for. If passed,
+     *            resource should match the original resource used to acquire
+     *            refresh token unless token service supports refresh token for
+     *            multiple resources.
+     * @param username
+     *            Username of the managed or federated user.
+     * @param password
+     *            Password of the managed or federated user.
+     * @param callback
+     *            optional callback object for non-blocking execution.
+     * @return A {@link Future} object representing the
+     *         {@link AuthenticationResult} of the call. It contains Access
+     *         Token, Refresh Token and the Access Token's expiration time.
+     */
+    public Future<AuthenticationResult> acquireToken(final String resource,
+                                                     final ClientCredential clientCredential, final String username,
+                                                     final String password, final AuthenticationCallback callback) {
+        if (StringHelper.isBlank(resource)) {
+            throw new IllegalArgumentException("resource is null or empty");
+        }
+
+        if (clientCredential == null) {
+            throw new IllegalArgumentException("client credential is null");
+        }
+
+        if (StringHelper.isBlank(username)) {
+            throw new IllegalArgumentException("username is null or empty");
+        }
+
+        if (StringHelper.isBlank(password)) {
+            throw new IllegalArgumentException("password is null or empty");
+        }
+
+        final ClientAuthentication clientAuth = new ClientSecretPost(
+                new ClientID(clientCredential.getClientId()), new Secret(
+                clientCredential.getClientSecret()));
+
+        return this.acquireToken(new AdalAuthorizatonGrant(
+                        new ResourceOwnerPasswordCredentialsGrant(username, new Secret(
+                                password)), resource), clientAuth, callback);
+    }
+
     /**
      * Acquires security token from the authority.
      *
